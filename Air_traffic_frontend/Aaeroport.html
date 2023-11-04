@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aeroports</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/af529d8a47.js" crossorigin="anonymous"></script>
+    <style>html,
+        body,
+        .intro {
+          height: 100%;
+        }
+        
+        .containt {
+          /* fallback for old browsers */
+          padding: 100px;
+          background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(https://cdn.pixabay.com/photo/2019/08/19/18/23/aircraft-4417089_1280.jpg);
+        
+          /* Chrome 10-25, Safari 5.1-6 */
+          
+        }
+        
+        table td,
+        table th {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+        tbody td {
+          font-weight: 500;
+          color: #999999;
+        }
+        *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        font-family: 'Lato', sans-serif;
+    }
+    .wrapper{
+        width: 1170px;
+        margin: auto;
+    }
+    header{
+        background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(https://cdn.pixabay.com/photo/2019/08/19/18/23/aircraft-4417089_1280.jpg);
+        height: 10vh;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+    }
+    .nav-area{
+        float: right;
+        list-style: none;
+        margin-top: 30px;
+    }
+    .nav-area li{
+        display: inline-block;
+    }
+    .nav-area li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 20px;
+    font-family: poppins;
+    font-size: 16px;
+    text-transform: uppercase;
+    }
+    .nav-area li a:hover{
+        background: #fff;
+        color: #333;
+    }
+    .logo{
+        float: left;
+    }
+    .logo img{
+        width: 100px;
+        padding: 15px 0;
+    }
+    .welcome-text{
+        position: absolute;
+        width: 800px;
+        height: 300px;
+        margin: 30% 27%;
+        text-align: center;
+    }
+    .welcome-text h1{
+        text-align: left;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 50px;
+    }
+    .welcome-text a{
+        border: 1px solid #fff;
+        padding: 10px 25px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-top: 20px;
+        display: inline-block;
+        color: #fff;
+    }
+    .welcome-text a:hover{
+        background: #fff;
+        color: #333;
+    }
+    
+    /*resposive*/
+    
+    @media (max-width:600px){
+        .wrapper {
+    width: 100%;
+    }
+    .logo {
+    float: none;
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    }
+    img {
+    width: 50px;
+    }
+    .nav-area {
+    float: none;
+    margin-top: 0;
+    }
+        .nav-area li a {
+    padding: 5px;
+    font-size: 11px;
+    }
+    .nav-area {
+    text-align: center;
+    }
+        .welcome-text {
+    width: 100%;
+    height: auto;
+    margin: 20% 0;
+    }
+        .welcome-text h1 {
+    font-size: 25px;
+    }
+    .col-8{
+
+        margin-left: -1000px;
+    }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+          <a href="home.html"> <div class="logo">
+            <img src="images/logo.png" alt="">
+        </div></a> 
+    <ul class="nav-area">
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="#">AEROPORTS</a></li>
+    <li><a href="simulateur.html">FLIGHTS</a></li>
+    
+    </ul>
+    </div>
+    
+    </header>
+    <section class="intro">
+        <div class="containt">
+            <table class="table " id="Mytable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Localisation</th>
+                    <th scope="col">Ouvert</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+        </div>
+        
+     
+      </section>
+      <script>
+        // Fetch data from the server
+fetch('http://127.0.0.1:8085/aeroports')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+    // Get a reference to the table body
+    const tableBody = document.querySelector('#Mytable tbody');
+
+    // Iterate over the data and create table rows
+    data.forEach(user => {
+      // Create a new table row
+      const row = document.createElement('tr');
+
+      // Create table cells for each data field
+      const idCell = document.createElement('td');
+      idCell.textContent = user.id;
+
+      const nameCell = document.createElement('td');
+      nameCell.textContent = user.nomAeroport;
+
+      const localCell = document.createElement('td');
+      localCell.textContent = " [ "+user.loc.lat+" , "+user.loc.lat+" ]";
+      const OuvertCell = document.createElement('td');
+      if(user.estFerme){
+      OuvertCell.innerHTML = "<i class='fa-solid fa-circle-xmark' style='color: #ff4d4d;'></i>";
+
+      }
+      else{
+      OuvertCell.innerHTML = "<i class='fa-solid fa-circle-check' style='color: #a8ffae;'></i>";
+      }
+///<i class="fa-solid fa-circle-xmark" style="color: #ff4d4d;"></i>
+//<i class="fa-solid fa-circle-check"></i> 
+      // Append the cells to the row
+      row.appendChild(idCell);
+      row.appendChild(nameCell);
+      row.appendChild(localCell);
+      row.appendChild(OuvertCell);
+
+      // Append the row to the table body
+      tableBody.appendChild(row);
+    }); 
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+</script>
+</body>
+</html>
